@@ -9,3 +9,8 @@ two:
   title: MyString
   description: MyText
   price: 9.99
+
+pragprog:
+  title: A new book
+  description: this is the description of the new book
+  price: 39.99
