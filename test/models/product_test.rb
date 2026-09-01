@@ -15,8 +15,20 @@ class ProductTest < ActiveSupport::TestCase
     assert product.errors[:image].any?
   end
 
+  test "product title must be atleast 10 characters in length" do
+    product = Product.new( title: 'Power', description: 'yyyy')
+    product.image.attach(io: File.open('test/fixtures/files/lorem.jpg'), filename: 'lorem.jpg', content_type: "image/jpeg")
+    product.price = 2
+
+    assert product.invalid?, "title must have 10 or more characters"
+    assert_equal [ "is too short (minimum is 10 characters)" ], product.errors[:title]
+
+    product.title = 'The 48 Laws of Power'
+    assert product.valid?
+  end
+
   test "product price must be positive" do
-    product = Product.new(title: 'My book', description: 'yyys')
+    product = Product.new(title: 'My great book', description: 'yyys')
     product.image.attach(io: File.open("test/fixtures/files/lorem.jpg"), filename: 'lorem.jpg', content_type: "image/jpeg")
 
     product.price = -1
