@@ -36,7 +36,6 @@ class LineItemsController < ApplicationController
         format.json { render json: @line_item.errors, status: :unprocessable_content }
       end
     end
-
   end
 
   # PATCH/PUT /line_items/1 or /line_items/1.json

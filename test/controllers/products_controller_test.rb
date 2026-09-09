@@ -22,7 +22,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
         product: {
           description: @product.description,
           price: @product.price,
-          image: file_fixture_upload('lorem.jpg', 'image/jpeg'), 
+          image: file_fixture_upload("lorem.jpg", "image/jpeg"),
           title: @title
         }
       }
@@ -46,9 +46,9 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
       product: {
         description: @product.description,
         price: @product.price,
-        image: file_fixture_upload('lorem.jpg', 'image/jpeg'),
-        title: @title,
-      } 
+        image: file_fixture_upload("lorem.jpg", "image/jpeg"),
+        title: @title
+      }
     }
     assert_redirected_to product_url(@product)
   end

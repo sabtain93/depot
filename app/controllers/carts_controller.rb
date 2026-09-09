@@ -62,8 +62,8 @@ class CartsController < ApplicationController
   private
 
     def invalid_cart
-      logger.error "Attempt to access invalid cart #{params[ :id] }"
-      redirect_to store_index_url, notice: 'Invalid cart'
+      logger.error "Attempt to access invalid cart #{params[:id] }"
+      redirect_to store_index_url, notice: "Invalid cart"
     end
 
     # Use callbacks to share common setup or constraints between actions.

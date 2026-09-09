@@ -16,9 +16,9 @@ product = Product.create(title: 'Courage Is Calling: Fortune Favors the Brave',
       <em>Ryan Holiday's bestselling trilogy--The Obstacle Is the Way, Ego is the Enemy, and Stillness is the Key--captivated professional athletes,
       CEOs, politicians, and entrepreneurs and helped bring Stoicism to millions of readers. Now, in the first book of an exciting new series on the
       cardinal virtues of ancient philosophy, Holiday explores the most foundational virtue of all: Courage.</em>
-      Almost every religion, spiritual practice, philosophy and person grapples with fear. The most repeated phrase in the Bible is 'Be not afraid.' 
-      The ancient Greeks spoke of phobos, panic and terror. It is natural to feel fear, the Stoics believed, but it cannot rule you. Courage, then, 
-      is the ability to rise above fear, to do what's right, to do what's needed, to do what is true. And so it rests at the heart of the works of 
+      Almost every religion, spiritual practice, philosophy and person grapples with fear. The most repeated phrase in the Bible is 'Be not afraid.'
+      The ancient Greeks spoke of phobos, panic and terror. It is natural to feel fear, the Stoics believed, but it cannot rule you. Courage, then,
+      is the ability to rise above fear, to do what's right, to do what's needed, to do what is true. And so it rests at the heart of the works of
       Marcus Aurelius, Aristotle, and CS Lewis, alongside temperance, justice, and wisdom.
     </p>),
     price: 19.25)
@@ -27,4 +27,3 @@ product = Product.create(title: 'Courage Is Calling: Fortune Favors the Brave',
 product.image.attach(io: File.open(Rails.root.join('db', 'images', 'did.jpeg')), filename: 'did.jpeg')
 
 product.save!
-
