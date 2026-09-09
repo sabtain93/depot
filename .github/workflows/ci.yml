@@ -13,23 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Make bin files executable
+        run: chmod +x bin/*
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Make bin files executable
-        run: chmod +x bin/
-
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
       
-      - name: Make bin files executable
-        run: chmod +x bin/
-
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit
-      
+       
   scan_js:
     runs-on: ubuntu-latest
 
@@ -37,13 +34,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Make bin files executable
+        run: chmod +x bin/*
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-
-      - name: Make bin files executable
-        run: chmod +x bin/
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
@@ -55,6 +52,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Make bin files executable
+        run: chmod +x bin/*
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -71,21 +71,12 @@ jobs:
           restore-keys: |
             rubocop-${{ runner.os }}-${{ env.DEPENDENCIES_HASH }}-
 
-      - name: Make bin files executable
-        run: chmod +x bin/
-
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
   test:
     runs-on: ubuntu-latest
 
-    # services:
-    #  redis:
-    #    image: valkey/valkey:8
-    #    ports:
-    #      - 6379:6379
-    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libvips
@@ -93,30 +84,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Make bin files executable
+        run: chmod +x bin/*
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Make bin files executable
-        run: chmod +x bin/
-
       - name: Run tests
         env:
           RAILS_ENV: test
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test
 
   system-test:
     runs-on: ubuntu-latest
 
-    # services:
-    #  redis:
-    #    image: valkey/valkey:8
-    #    ports:
-    #      - 6379:6379
-    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libvips
@@ -124,19 +107,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Make bin files executable
+        run: chmod +x bin/*
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Make bin files executable
-        run: chmod +x bin/
-
       - name: Run System Tests
         env:
           RAILS_ENV: test
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test:system
 
       - name: Keep screenshots from failed system tests
