@@ -18,9 +18,15 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Make bin files executable
+        run: chmod +x bin/
+
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
       
+      - name: Make bin files executable
+        run: chmod +x bin/
+
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit
       
@@ -35,6 +41,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Make bin files executable
+        run: chmod +x bin/
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
@@ -62,6 +71,9 @@ jobs:
           restore-keys: |
             rubocop-${{ runner.os }}-${{ env.DEPENDENCIES_HASH }}-
 
+      - name: Make bin files executable
+        run: chmod +x bin/
+
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
@@ -85,6 +97,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Make bin files executable
+        run: chmod +x bin/
 
       - name: Run tests
         env:
@@ -113,6 +128,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Make bin files executable
+        run: chmod +x bin/
 
       - name: Run System Tests
         env:
