@@ -2,8 +2,10 @@
 
 one:
   product: two
+  price: 9.99
   cart: one
 
 two:
-  product: two
-  cart: two
+  product: pragprog
+  order: one
+  price: 9.99
