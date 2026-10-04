@@ -3,6 +3,7 @@ require "test_helper"
 class OrdersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @order = orders(:one)
+    login_as users(:one)
   end
 
   test "should get index" do
@@ -29,6 +30,40 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to store_index_url
+  end
+
+  test "passes payment fields for the selected payment type to the charge job" do
+    payment_options = {
+      "Check" => {
+        routing_number: "123456789",
+        account_number: "1234567890"
+      },
+      "Credit card" => {
+        credit_card_number: "4111111111111111",
+        expiration_date: "03/30"
+      },
+      "Purchase order" => {
+        po_number: "12345"
+      }
+    }
+
+    payment_options.each do |pay_type, details|
+      assert_enqueued_with(
+        job: ChargeOrderJob,
+        args: ->(args) { args.last == details.stringify_keys }
+      ) do
+        post orders_url, params: {
+          order: {
+            address: @order.address,
+            email: @order.email,
+            name: @order.name,
+            pay_type: pay_type
+          }.merge(details)
+        }
+      end
+
+      assert_equal pay_type, Order.order(:created_at).last.pay_type
+    end
   end
 
   test "should show order" do

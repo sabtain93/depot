@@ -1,0 +1,8 @@
+<h3>Stan's Online Book Store, Order received</h3>
+<p>
+Dear <%= @order.name %>, this is just to let you know that we've received your recent order:
+</p>
+<table>
+<tr><th colspan="2">Qty</th><th>Description</th></tr>
+<%= render @order.line_items -%>
+</table>
